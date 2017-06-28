@@ -10,16 +10,13 @@
     android:layout_gravity="center_horizontal|center_vertical"
     android:id="@+id/shimmer_view_container"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    shimmer:duration="1000"
-    shimmer:repeat_count="1"
-    shimmer:angle="cw_90">
+    android:layout_width="wrap_content">
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Shimmer Text"
-      android:textSize="65sp"
+      android:textSize="50sp"
       android:textColor="@color/gold1"/>
 
   </sagar.com.shimmer.ShimmerFrameLayout>
