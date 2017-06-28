@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="sagar.com.shimmer.MainActivity">
+
+  <sagar.com.shimmer.ShimmerFrameLayout
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:id="@+id/shimmer_view_container"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    shimmer:duration="1000"
+    shimmer:repeat_count="1"
+    shimmer:angle="cw_90">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Shimmer Text"
+      android:textSize="65sp"
+      android:textColor="@color/gold1"/>
+
+  </sagar.com.shimmer.ShimmerFrameLayout>
+
+</LinearLayout>
