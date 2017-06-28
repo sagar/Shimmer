@@ -4,21 +4,29 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:orientation="vertical"
   tools:context="sagar.com.shimmer.MainActivity">
 
+  <ImageView
+    android:layout_marginLeft="125dp"
+    android:layout_marginBottom="50dp"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:src="@mipmap/flame"/>
+
   <sagar.com.shimmer.ShimmerFrameLayout
-    android:layout_gravity="center_horizontal|center_vertical"
-    android:id="@+id/shimmer_view_container"
+    android:id="@+id/shimmer_view_container1"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content">
+    android:layout_width="wrap_content"
+    shimmer:repeat_delay="0"
+    shimmer:duration="2000"
+    shimmer:shape="linear">
 
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Shimmer Text"
-      android:textSize="50sp"
-      android:textColor="@color/gold1"/>
-
+    <ImageView
+      android:layout_marginLeft="125dp"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:src="@mipmap/flame"/>
   </sagar.com.shimmer.ShimmerFrameLayout>
 
 </LinearLayout>

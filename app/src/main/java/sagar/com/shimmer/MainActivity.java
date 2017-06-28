@@ -9,9 +9,8 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    ShimmerFrameLayout container =
-        (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-
-    container.startShimmerAnimation();
+    ShimmerFrameLayout container1 =
+        (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container1);
+    container1.startShimmerAnimation();
   }
 }
