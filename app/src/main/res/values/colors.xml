@@ -3,5 +3,13 @@
   <color name="colorPrimary">#3F51B5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
-  <color name="gold1">#e9aa43</color>
+  <color name="gold">#e9aa43</color>
+
+  <color name="gold1">#E9AA43</color>
+  <color name="gold2">#E09220</color>
+  <color name="gold3">#E9AA43</color>
+  <color name="gold4">#F3D27C</color>
+  <color name="gold5">#E9AA43</color>
+  <color name="gold6">#E09220</color>
+  <color name="gold7">#E9AA43</color>
 </resources>

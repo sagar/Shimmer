@@ -16,10 +16,7 @@
   <sagar.com.shimmer.ShimmerFrameLayout
     android:id="@+id/shimmer_view_container1"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    shimmer:repeat_delay="0"
-    shimmer:duration="2000"
-    shimmer:shape="linear">
+    android:layout_width="wrap_content">
 
     <ImageView
       android:layout_width="100dp"
