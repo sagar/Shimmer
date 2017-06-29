@@ -23,11 +23,6 @@ public class ShimmerFrameLayout extends FrameLayout {
   private static final PorterDuffXfermode DST_IN_PORTER_DUFF_XFERMODE = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
   private static int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
 
-  // enum specifying the shape of the highlight mask applied to the contained view
-  public enum MaskShape {
-    LINEAR
-  }
-
   // struct storing various mask related parameters, which are used to construct the mask bitmap
   private static class Mask {
     public float tilt;
@@ -37,7 +32,6 @@ public class ShimmerFrameLayout extends FrameLayout {
     public float intensity;
     public float relativeWidth;
     public float relativeHeight;
-    public MaskShape shape;
 
     public int maskWidth(int width) {
       return fixedWidth > 0 ? fixedWidth : (int) (width * relativeWidth);
@@ -160,7 +154,6 @@ public class ShimmerFrameLayout extends FrameLayout {
     setRepeatDelay(0);
     setRepeatMode(ObjectAnimator.RESTART);
 
-    mMask.shape = MaskShape.LINEAR;
     mMask.dropoff = 0.5f;
     mMask.fixedWidth = 0;
     mMask.fixedHeight = 0;
