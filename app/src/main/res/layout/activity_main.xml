@@ -24,7 +24,17 @@
       android:id="@+id/image2"
       android:layout_width="100dp"
       android:layout_height="100dp"
+      android:layout_marginBottom="50dp"
       android:src="@mipmap/flame"/>
   </sagar.com.shimmer.ShimmerFrameLayout>
+
+  <TextView
+    android:id="@+id/sensor_info"
+    android:textStyle="bold"
+    android:textSize="18sp"
+    android:paddingLeft="25dp"
+    android:text="Accelerometer Data"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
 
 </LinearLayout>
