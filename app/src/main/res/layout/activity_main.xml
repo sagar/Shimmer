@@ -17,6 +17,7 @@
 
   <sagar.com.shimmer.ShimmerFrameLayout
     android:id="@+id/shimmer_view_container1"
+    android:layout_marginBottom="50dp"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
@@ -24,7 +25,6 @@
       android:id="@+id/image2"
       android:layout_width="100dp"
       android:layout_height="100dp"
-      android:layout_marginBottom="50dp"
       android:src="@mipmap/flame"/>
   </sagar.com.shimmer.ShimmerFrameLayout>
 
