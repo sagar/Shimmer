@@ -93,7 +93,6 @@ public class ShimmerFrameLayout extends FrameLayout {
   private Bitmap mRenderMaskBitmap;
   private Bitmap mRenderUnmaskBitmap;
 
-  private boolean mAutoStart;
   private int mDuration;
   private int mRepeatCount;
   private int mRepeatDelay;
@@ -148,7 +147,6 @@ public class ShimmerFrameLayout extends FrameLayout {
    */
   public void useDefaults() {
     // Set defaults
-    setAutoStart(false);
     setDuration(1000);
     setRepeatCount(ObjectAnimator.INFINITE);
     setRepeatDelay(0);
@@ -164,19 +162,8 @@ public class ShimmerFrameLayout extends FrameLayout {
 
     mMaskTranslation = new MaskTranslation();
 
-    setBaseAlpha(0.3f);
+    setBaseAlpha(0.9f);
 
-    resetAll();
-  }
-
-  /**
-   * Enable or disable 'auto start' for this layout. When auto start is enabled, the layout will start animating
-   * automatically whenever it is attached to the current window.
-   *
-   * @param autoStart Whether auto start should be enabled or not
-   */
-  public void setAutoStart(boolean autoStart) {
-    mAutoStart = autoStart;
     resetAll();
   }
 
@@ -300,8 +287,9 @@ public class ShimmerFrameLayout extends FrameLayout {
       @Override
       public void onGlobalLayout() {
         boolean animationStarted = mAnimationStarted;
+        Log.e(TAG, "onGlobalLayout(): animationStarted = " + animationStarted);
         resetAll();
-        if (mAutoStart || animationStarted) {
+        if (animationStarted) {
           startShimmerAnimation();
         }
       }
@@ -320,10 +308,14 @@ public class ShimmerFrameLayout extends FrameLayout {
 
   @Override
   protected void dispatchDraw(Canvas canvas) {
+    final long ms = System.currentTimeMillis();
+    //Log.e(TAG, "dispatchDraw() " + ms);
     if (!mAnimationStarted || getWidth() <= 0 || getHeight() <= 0) {
+      Log.e(TAG, "dispatchDraw() inside " + ms);
       super.dispatchDraw(canvas);
       return;
     }
+    //Log.e(TAG, "dispatchDraw() outside " + ms);
     dispatchDrawUsingBitmap(canvas);
   }
 
