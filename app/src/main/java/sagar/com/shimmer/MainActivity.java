@@ -30,14 +30,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ImageView nonShimmerImage = (ImageView) findViewById(R.id.image1);
-    sensorInfo = (TextView) findViewById(R.id.sensor_info);
+    //sensorInfo = (TextView) findViewById(R.id.sensor_info);
     nonShimmerImage.setOnClickListener(this);
     container1 = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container1);
     container1.startShimmerAnimation();
 
     sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
     accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    //magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
   }
 
   @Override
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     String text = String.format(Locale.US, "x: %.1f, y: %.1f, z: %.1f\n\nmagX = %s, magY = %s, magZ = %s", x, y, z, magnitudeX, magnituteY, magnitudeZ);
-    sensorInfo.setText(text);
+    //sensorInfo.setText(text);
 
     prevX = x;
     prevY = y;
@@ -120,3 +119,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     return 0;
   }
 }
+
+/**
+
+ <TextView
+ android:id="@+id/sensor_info"
+ android:textStyle="bold"
+ android:textSize="18sp"
+ android:paddingLeft="25dp"
+ android:text="Accelerometer Data"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"/>
+
+ */
