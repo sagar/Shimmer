@@ -150,7 +150,7 @@ public class ShimmerFrameLayout extends FrameLayout {
     setDuration(1000);
     setRepeatCount(ObjectAnimator.INFINITE);
     setRepeatDelay(0);
-    setRepeatMode(ObjectAnimator.RESTART);
+    setRepeatMode(ObjectAnimator.REVERSE);
 
     mMask.dropoff = 0.5f;
     mMask.fixedWidth = 0;
