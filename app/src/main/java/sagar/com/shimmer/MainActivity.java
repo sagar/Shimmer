@@ -1,14 +1,19 @@
 package sagar.com.shimmer;
 
+import android.animation.ValueAnimator;
+import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.Locale;
 
@@ -22,12 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   private Sensor accelerometer;
   private Sensor magnetometer;
   private float prevX, prevY, prevZ;
-  private String magnitudeX = "+ve", magnituteY = "+ve", magnitudeZ = "+ve";
+  private ImageView imageView;
+  private String magnitudeX = "+ve", magnitudeY = "+ve", magnitudeZ = "+ve";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main_shimmer_view);
+    //setContentView(R.layout.activity_main_shimmer_view);
+    setContentView(R.layout.activity_main_animated_view);
     /**
     setContentView(R.layout.activity_main);
     ImageView nonShimmerImage = (ImageView) findViewById(R.id.image1);
@@ -35,9 +42,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     nonShimmerImage.setOnClickListener(this);
     container1 = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container1);
     container1.startShimmerAnimation();
-     **/
-    sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+    **/
+    imageView = (ImageView) findViewById(R.id.animatedImage1);
+    sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    translate();
+  }
+
+  private void translate() {
+    ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
+    animator.setDuration(3000);
+    animator.setRepeatCount(ValueAnimator.INFINITE);
+    animator.setRepeatMode(ValueAnimator.REVERSE);
+    animator.addUpdateListener(new AnimatorUpdateListener() {
+      @RequiresApi(api = VERSION_CODES.LOLLIPOP)
+      @Override
+      public void onAnimationUpdate(ValueAnimator valueAnimator) {
+        imageView.setTranslationX((float) valueAnimator.getAnimatedValue());
+        imageView.setTranslationY((float) valueAnimator.getAnimatedValue());
+        imageView.setTranslationZ((float) valueAnimator.getAnimatedValue());
+      }
+    });
+    animator.start();
   }
 
   @Override
@@ -82,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       magnitudeX = "-ve";
     }
 
-    String text = String.format(Locale.US, "x: %.1f, y: %.1f, z: %.1f\n\nmagX = %s, magY = %s, magZ = %s", x, y, z, magnitudeX, magnituteY, magnitudeZ);
+    String text = String.format(Locale.US, "x: %.1f, y: %.1f, z: %.1f\n\nmagX = %s, magY = %s, magZ = %s", x, y, z, magnitudeX, magnitudeY, magnitudeZ);
     //sensorInfo.setText(text);
 
     prevX = x;

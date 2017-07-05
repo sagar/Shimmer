@@ -2,7 +2,6 @@ package sagar.com.shimmer;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
@@ -14,8 +13,7 @@ import android.view.View;
 public class ShimmerView extends View {
 
   private static int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
-  Shader gradient = new LinearGradient(0, 0, 10, 10, Color.YELLOW, Color.RED, TileMode.REPEAT);
-  Shader gradient2;
+  Shader gradient;
   Paint paint = new Paint();
 
   public ShimmerView(Context context) {
@@ -39,9 +37,14 @@ public class ShimmerView extends View {
 
   @Override
   protected void onDraw(Canvas canvas) {
-    gradient2 = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(), null, TileMode.CLAMP);
-    paint.setShader(gradient2);
+    paint.setShader(gradient);
     canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
     super.onDraw(canvas);
+  }
+
+  @Override
+  protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+    super.onSizeChanged(width, height, oldWidth, oldHeight);
+    gradient = new LinearGradient(0, 0, width, height, getColorList(), null, TileMode.CLAMP);
   }
 }
