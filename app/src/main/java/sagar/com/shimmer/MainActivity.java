@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.Locale;
 
@@ -28,13 +27,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main_shimmer_view);
+    /**
     setContentView(R.layout.activity_main);
     ImageView nonShimmerImage = (ImageView) findViewById(R.id.image1);
     //sensorInfo = (TextView) findViewById(R.id.sensor_info);
     nonShimmerImage.setOnClickListener(this);
     container1 = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container1);
     container1.startShimmerAnimation();
-
+     **/
     sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
     accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
   }

@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -47,8 +46,8 @@ public class ShimmerFrameLayout extends FrameLayout {
      * @return An array of black and transparent colors
      */
     public int[] getGradientColors() {
-      //return new int[]{gold1, gold2, gold3, gold4, gold5, gold6, gold7};
-      return new int[]{Color.TRANSPARENT, Color.BLACK, Color.BLACK, Color.TRANSPARENT};
+      return new int[]{gold1, gold2, gold3, gold4, gold5, gold6, gold7};
+      //return new int[]{Color.TRANSPARENT, Color.BLACK, Color.BLACK, Color.TRANSPARENT};
     }
 
     /**
@@ -57,14 +56,7 @@ public class ShimmerFrameLayout extends FrameLayout {
      * @return A array of float values in the [0..1] range
      */
     public float[] getGradientPositions() {
-      return new float[]{
-          //Math.max((1.0f - intensity - dropoff) / 2, 0.0f),
-          Math.max((1.0f - intensity - dropoff) / 2, 0.0f),
-          Math.max((1.0f - intensity) / 2, 0.0f),
-          //Math.max((1.0f - intensity) / 2, 0.5f),
-          Math.min((1.0f + intensity) / 2, 1.0f),
-          //Math.min((1.0f + intensity + dropoff) / 2, 1.0f),
-          Math.min((1.0f + intensity + dropoff) / 2, 1.0f)};
+      return new float[] {0.1f, 0.25f, 0.35f, 0.45f, 0.55f, 0.7f, 0.9f};
     }
   }
 
