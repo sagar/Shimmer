@@ -1,7 +1,6 @@
 package sagar.com.shimmer;
 
 import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -140,9 +139,9 @@ public class ShimmerFrameLayout extends FrameLayout {
   public void useDefaults() {
     // Set defaults
     setDuration(1000);
-    setRepeatCount(ObjectAnimator.INFINITE);
+    setRepeatCount(ValueAnimator.INFINITE);
     setRepeatDelay(0);
-    setRepeatMode(ObjectAnimator.REVERSE);
+    setRepeatMode(ValueAnimator.REVERSE);
 
     mMask.dropoff = 0.5f;
     mMask.fixedWidth = 0;

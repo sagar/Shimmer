@@ -28,13 +28,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   private Sensor magnetometer;
   private float prevX, prevY, prevZ;
   private ImageView imageView;
+  private ShimmerView shimmerView;
   private String magnitudeX = "+ve", magnitudeY = "+ve", magnitudeZ = "+ve";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    //setContentView(R.layout.activity_main_shimmer_view);
-    setContentView(R.layout.activity_main_animated_view);
+
+    setContentView(R.layout.activity_main_shimmer_view);
+    // setContentView(R.layout.activity_main_animated_view);
     /**
     setContentView(R.layout.activity_main);
     ImageView nonShimmerImage = (ImageView) findViewById(R.id.image1);
@@ -43,10 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     container1 = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container1);
     container1.startShimmerAnimation();
     **/
-    imageView = (ImageView) findViewById(R.id.animatedImage1);
+    //imageView = (ImageView) findViewById(R.id.animatedImage1);
     sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    translate();
+    //translate();
+    shimmerView = (ShimmerView) findViewById(R.id.shimmerView);
+    shimmerView.startAnimation();
   }
 
   private void translate() {
