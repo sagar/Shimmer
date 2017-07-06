@@ -352,32 +352,12 @@ public class ShimmerLayout extends FrameLayout {
   }
 
   private Bitmap tryCreateRenderBitmap() {
-    int width = getWidth();
-    int height = getHeight();
-    try {
-      return createBitmapAndGcIfNecessary(width, height);
-    } catch (OutOfMemoryError e) {
-      String logMessage = "ShimmerFrameLayout failed to create working bitmap";
-      StringBuilder logMessageStringBuilder = new StringBuilder(logMessage);
-      logMessageStringBuilder.append(" (width = ");
-      logMessageStringBuilder.append(width);
-      logMessageStringBuilder.append(", height = ");
-      logMessageStringBuilder.append(height);
-      logMessageStringBuilder.append(")\n\n");
-      for (StackTraceElement stackTraceElement :
-          Thread.currentThread().getStackTrace()) {
-        logMessageStringBuilder.append(stackTraceElement.toString());
-        logMessageStringBuilder.append("\n");
-      }
-      logMessage = logMessageStringBuilder.toString();
-      Log.d(TAG, logMessage);
-    }
-    return null;
+    return Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
   }
 
   // Draws the children without any mask.
   private void drawUnmasked(Canvas renderCanvas) {
-    renderCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+    renderCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
     super.dispatchDraw(renderCanvas);
   }
 
@@ -435,7 +415,7 @@ public class ShimmerLayout extends FrameLayout {
     int width = mMask.maskWidth(getWidth());
     int height = mMask.maskHeight(getHeight());
 
-    mMaskBitmap = createBitmapAndGcIfNecessary(width, height);
+    mMaskBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
     Canvas canvas = new Canvas(mMaskBitmap);
     Shader gradient;
     int x1 = 0, y1 = 0;
@@ -481,23 +461,5 @@ public class ShimmerLayout extends FrameLayout {
       }
     });
     return mAnimator;
-  }
-
-  /**
-   * Creates a bitmap with the given width and height.
-   * <p/>
-   * If it fails with an OutOfMemory error, it will force a GC and then try to create the bitmap
-   * one more time.
-   *
-   * @param width  width of the bitmap
-   * @param height height of the bitmap
-   */
-  protected static Bitmap createBitmapAndGcIfNecessary(int width, int height) {
-    try {
-      return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-    } catch (OutOfMemoryError e) {
-      System.gc();
-      return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-    }
   }
 }

@@ -18,15 +18,17 @@ import android.widget.ImageView.ScaleType;
 import com.bumptech.glide.Glide;
 import jp.wasabeef.glide.transformations.MaskTransformation;
 
-public class MaskActivity extends AppCompatActivity {
+public class SimpleMaskActivity extends AppCompatActivity {
 
-  private static final String TAG = MaskActivity.class.getSimpleName();
+  private static final String TAG = SimpleMaskActivity.class.getSimpleName();
 
+  //https://stackoverflow.com/questions/12614542/maskingcrop-image-in-frame
+  //https://stackoverflow.com/questions/5299452/how-can-i-crop-an-image-with-mask-and-combine-it-with-another-image-background
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.mask_view);
-    //transform1();
+    setContentView(R.layout.simple_mask_view);
+    transform1();
   }
 
   private void transform1() {
