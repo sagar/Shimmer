@@ -1,79 +1,83 @@
 package sagar.com.shimmer;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.drawable.Drawable;
+import android.graphics.Shader;
+import android.graphics.Shader.TileMode;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import com.bumptech.glide.Glide;
-import jp.wasabeef.glide.transformations.MaskTransformation;
 
 public class MaskActivity extends AppCompatActivity {
 
   private static final String TAG = MaskActivity.class.getSimpleName();
+  private static int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.mask_view);
+
+    gold1 = getResources().getColor(R.color.gold1);
+    gold2 = getResources().getColor(R.color.gold2);
+    gold3 = getResources().getColor(R.color.gold3);
+    gold4 = getResources().getColor(R.color.gold4);
+    gold5 = getResources().getColor(R.color.gold5);
+    gold6 = getResources().getColor(R.color.gold6);
+    gold7 = getResources().getColor(R.color.gold7);
+
     //transform1();
   }
 
   private void transform1() {
-    final ImageView imageView = (ImageView) findViewById(R.id.image_container);
-    Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.sagar);
-    Bitmap mask = BitmapFactory.decodeResource(getResources(), R.drawable.mask);
-    Bitmap result = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Config.ARGB_8888);
-    Canvas canvas = new Canvas(result);
-    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
-    canvas.drawBitmap(original, 0, 0, null);
-    canvas.drawBitmap(mask, 0, 0, paint);
-    paint.setXfermode(null);
-    imageView.setImageBitmap(result);
-    imageView.setScaleType(ScaleType.CENTER);
+    final float alpha = 0.9f;
+    final int width = 200;
+    final int height = 200;
+
+    Paint alphaPaint = new Paint();
+    alphaPaint.setAlpha((int) (clamp(0, 1, alpha) * 0xff));
+
+    Canvas clearCanvas = new Canvas();
+    Bitmap clearBitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+    clearCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+    clearCanvas.drawBitmap(clearBitmap, 0, 0, alphaPaint);
+
+    Paint maskPaint = new Paint();
+    maskPaint.setAntiAlias(true);
+    maskPaint.setDither(true);
+    maskPaint.setFilterBitmap(true);
+    maskPaint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
+
+    Bitmap maskBitmap = getMaskBitmap(width, height);
+    Canvas maskCanvas = new Canvas();
+    int maskOffsetX = 50;
+    int maskOffsetY = 0;
+    maskCanvas.clipRect(maskOffsetX, maskOffsetY, 50, height);
+    maskCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+    maskCanvas.drawBitmap(maskBitmap, maskOffsetX, maskOffsetY, maskPaint);
+    maskCanvas.drawBitmap(maskBitmap, 0, 0, null);
   }
 
-  private void transform2() {
-    final ImageView imageView = (ImageView) findViewById(R.id.image_container);
-    ObjectAnimator animator = ObjectAnimator.ofFloat(imageView, "translationX", 0f, 100f);
-    animator.setDuration(3000);
-    animator.setRepeatMode(ObjectAnimator.REVERSE);
-    animator.setRepeatCount(ObjectAnimator.INFINITE);
-    Glide.with(this)
-        .load(R.drawable.sagar)
-        .bitmapTransform(new MaskTransformation(this, R.drawable.mask))
-        .into(imageView);
-    animator.start();
+  private Bitmap getMaskBitmap(int width, int height) {
+    Bitmap maskBitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+    Canvas maskCanvas = new Canvas(maskBitmap);
+    Shader gradient = new LinearGradient(0, 0, 100, 100, getGradientColors(), null, TileMode.CLAMP);
+    Paint paint = new Paint();
+    paint.setShader(gradient);
+    maskCanvas.drawRect(10, 10, 20, 20, paint);
+    return maskBitmap;
   }
 
-  private void transform3() {
-    final ImageView imageView = (ImageView) findViewById(R.id.image_container);
-    final Drawable drawable = getResources().getDrawable(R.drawable.sagar);
-    ValueAnimator animator = ValueAnimator.ofFloat(0f, 100f);
-    animator.addUpdateListener(new AnimatorUpdateListener() {
-      @Override
-      public void onAnimationUpdate(ValueAnimator valueAnimator) {
+  private static float clamp(float min, float max, float value) {
+    return Math.min(max, Math.max(min, value));
+  }
 
-      }
-    });
-    animator.setDuration(3000);
-    animator.setRepeatMode(ObjectAnimator.REVERSE);
-    animator.setRepeatCount(ObjectAnimator.INFINITE);
-    Glide.with(this)
-        .load(R.drawable.sagar)
-        .bitmapTransform(new MaskTransformation(this, R.drawable.mask))
-        .into(imageView);
-    animator.start();
+  public int[] getGradientColors() {
+    return new int[]{gold1, gold2, gold3, gold4, gold5, gold6, gold7};
   }
 }

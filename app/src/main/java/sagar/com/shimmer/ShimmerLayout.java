@@ -337,24 +337,6 @@ public class ShimmerLayout extends FrameLayout {
     return true;
   }
 
-  private Bitmap tryObtainRenderUnmaskBitmap() {
-    if (mRenderUnmaskBitmap == null) {
-      mRenderUnmaskBitmap = tryCreateRenderBitmap();
-    }
-    return mRenderUnmaskBitmap;
-  }
-
-  private Bitmap tryObtainRenderMaskBitmap() {
-    if (mRenderMaskBitmap == null) {
-      mRenderMaskBitmap = tryCreateRenderBitmap();
-    }
-    return mRenderMaskBitmap;
-  }
-
-  private Bitmap tryCreateRenderBitmap() {
-    return Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-  }
-
   // Draws the children without any mask.
   private void drawUnmasked(Canvas renderCanvas) {
     renderCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
@@ -373,10 +355,28 @@ public class ShimmerLayout extends FrameLayout {
         mMaskOffsetY,
         mMaskOffsetX + maskBitmap.getWidth(),
         mMaskOffsetY + maskBitmap.getHeight());
-    renderCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+    renderCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
     super.dispatchDraw(renderCanvas);
 
     renderCanvas.drawBitmap(maskBitmap, mMaskOffsetX, mMaskOffsetY, mMaskPaint);
+  }
+
+  private Bitmap tryObtainRenderUnmaskBitmap() {
+    if (mRenderUnmaskBitmap == null) {
+      mRenderUnmaskBitmap = tryCreateRenderBitmap();
+    }
+    return mRenderUnmaskBitmap;
+  }
+
+  private Bitmap tryObtainRenderMaskBitmap() {
+    if (mRenderMaskBitmap == null) {
+      mRenderMaskBitmap = tryCreateRenderBitmap();
+    }
+    return mRenderMaskBitmap;
+  }
+
+  private Bitmap tryCreateRenderBitmap() {
+    return Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
   }
 
   private void resetAll() {

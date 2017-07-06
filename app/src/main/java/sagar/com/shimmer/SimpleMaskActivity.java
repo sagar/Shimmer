@@ -32,7 +32,7 @@ public class SimpleMaskActivity extends AppCompatActivity {
   }
 
   private void transform1() {
-    final ImageView imageView = (ImageView) findViewById(R.id.image_container);
+    final ImageView imageView = (ImageView) findViewById(R.id.simple_image_container);
     Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.sagar);
     Bitmap mask = BitmapFactory.decodeResource(getResources(), R.drawable.mask);
     Bitmap result = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Config.ARGB_8888);
@@ -47,7 +47,7 @@ public class SimpleMaskActivity extends AppCompatActivity {
   }
 
   private void transform2() {
-    final ImageView imageView = (ImageView) findViewById(R.id.image_container);
+    final ImageView imageView = (ImageView) findViewById(R.id.simple_image_container);
     ObjectAnimator animator = ObjectAnimator.ofFloat(imageView, "translationX", 0f, 100f);
     animator.setDuration(3000);
     animator.setRepeatMode(ObjectAnimator.REVERSE);
@@ -60,7 +60,7 @@ public class SimpleMaskActivity extends AppCompatActivity {
   }
 
   private void transform3() {
-    final ImageView imageView = (ImageView) findViewById(R.id.image_container);
+    final ImageView imageView = (ImageView) findViewById(R.id.simple_image_container);
     final Drawable drawable = getResources().getDrawable(R.drawable.sagar);
     ValueAnimator animator = ValueAnimator.ofFloat(0f, 100f);
     animator.addUpdateListener(new AnimatorUpdateListener() {
