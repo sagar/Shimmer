@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <declare-styleable name="ShimmerFrameLayout">
+  <declare-styleable name="ShimmerLayout">
     <attr name="auto_start" format="boolean"/>
     <attr name="base_alpha" format="float"/>
     <attr name="duration" format="integer"/>

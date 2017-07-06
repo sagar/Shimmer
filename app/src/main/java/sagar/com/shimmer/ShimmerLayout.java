@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -15,7 +16,7 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
-public class ShimmerFrameLayout extends FrameLayout {
+public class ShimmerLayout extends FrameLayout {
 
   private static final String TAG = "ShimmerFrameLayout";
   private static final PorterDuffXfermode DST_IN_PORTER_DUFF_XFERMODE = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
@@ -45,8 +46,8 @@ public class ShimmerFrameLayout extends FrameLayout {
      * @return An array of black and transparent colors
      */
     public int[] getGradientColors() {
-      return new int[]{gold1, gold2, gold3, gold4, gold5, gold6, gold7};
-      //return new int[]{Color.TRANSPARENT, Color.BLACK, Color.BLACK, Color.TRANSPARENT};
+      //return new int[]{gold1, gold2, gold3, gold4, gold5, gold6, gold7};
+      return new int[]{Color.TRANSPARENT, Color.BLACK, Color.BLACK, Color.TRANSPARENT};
     }
 
     /**
@@ -98,15 +99,15 @@ public class ShimmerFrameLayout extends FrameLayout {
   protected ValueAnimator mAnimator;
   protected Bitmap mMaskBitmap;
 
-  public ShimmerFrameLayout(Context context) {
+  public ShimmerLayout(Context context) {
     this(context, null, 0);
   }
 
-  public ShimmerFrameLayout(Context context, AttributeSet attrs) {
+  public ShimmerLayout(Context context, AttributeSet attrs) {
     this(context, attrs, 0);
   }
 
-  public ShimmerFrameLayout(Context context, AttributeSet attrs, int defStyle) {
+  public ShimmerLayout(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
 
     gold1 = context.getResources().getColor(R.color.gold1);
@@ -444,7 +445,8 @@ public class ShimmerFrameLayout extends FrameLayout {
             x1, y1,
             x2, y2,
             mMask.getGradientColors(),
-            mMask.getGradientPositions(),
+            //mMask.getGradientPositions(),
+            null,
             Shader.TileMode.REPEAT);
 
     canvas.rotate(mMask.tilt, width / 2, height / 2);

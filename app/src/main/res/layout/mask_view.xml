@@ -4,11 +4,11 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
-  tools:context="sagar.com.shimmer.MainActivity">
+  tools:context="sagar.com.shimmer.SensorActivity">
 
-  <sagar.com.shimmer.ShimmerView
-    android:id="@+id/shimmerView"
-    android:background="@android:color/darker_gray"
+  <ImageView
+    android:id="@+id/image_container"
+    android:background="@drawable/frame"
     android:layout_marginBottom="50dp"
     android:layout_width="200dp"
     android:layout_height="200dp"/>
