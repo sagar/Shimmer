@@ -7,10 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.view.View;
 
-public class ShimmerView extends AppCompatImageView {
+public class ShimmerView extends View {
 
   private static final String TAG = ShimmerView.class.getSimpleName();
   private static int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
