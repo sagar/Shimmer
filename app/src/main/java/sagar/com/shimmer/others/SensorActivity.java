@@ -1,4 +1,4 @@
-package sagar.com.shimmer;
+package sagar.com.shimmer.others;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 import java.util.Locale;
+import sagar.com.shimmer.R;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
 

@@ -1,4 +1,4 @@
-package sagar.com.shimmer;
+package sagar.com.shimmer.others;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -12,6 +12,7 @@ import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import sagar.com.shimmer.R;
 
 public class MaskActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package sagar.com.shimmer;
+package sagar.com.shimmer.others;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import com.bumptech.glide.Glide;
 import jp.wasabeef.glide.transformations.MaskTransformation;
+import sagar.com.shimmer.R;
 
 public class SimpleMaskActivity extends AppCompatActivity {
 

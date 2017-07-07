@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
-  tools:context="sagar.com.shimmer.SensorActivity">
+  tools:context="sagar.com.shimmer.others.SensorActivity">
 
   <TextView
     android:id="@+id/sensor_info"

@@ -1,4 +1,4 @@
-package sagar.com.shimmer;
+package sagar.com.shimmer.others;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+import sagar.com.shimmer.R;
 
 public class PorterDuffLayout extends FrameLayout {
 
@@ -25,7 +26,7 @@ public class PorterDuffLayout extends FrameLayout {
   @Override
   protected void dispatchDraw(Canvas canvas) {
     super.dispatchDraw(canvas);
-    porterDuff(canvas, Mode.SRC_ATOP);
+    porterDuff(canvas, Mode.DST_OUT);
   }
 
   private void porterDuff(Canvas canvas, Mode mode) {

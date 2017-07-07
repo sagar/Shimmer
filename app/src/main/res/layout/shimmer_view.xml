@@ -4,9 +4,9 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
-  tools:context="sagar.com.shimmer.SensorActivity">
+  tools:context="sagar.com.shimmer.others.SensorActivity">
 
-  <sagar.com.shimmer.ShimmerView
+  <sagar.com.shimmer.others.ShimmerView
     android:id="@+id/shimmerView"
     android:background="@android:color/darker_gray"
     android:layout_marginBottom="50dp"

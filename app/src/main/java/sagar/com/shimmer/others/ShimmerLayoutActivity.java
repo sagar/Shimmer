@@ -1,9 +1,10 @@
-package sagar.com.shimmer;
+package sagar.com.shimmer.others;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import sagar.com.shimmer.R;
 
 public class ShimmerLayoutActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,7 +17,6 @@ public class ShimmerLayoutActivity extends AppCompatActivity implements View.OnC
     super.onCreate(savedInstanceState);
     setContentView(R.layout.shimmer_layout);
     ImageView nonShimmerImage = (ImageView) findViewById(R.id.image1);
-    //sensorInfo = (TextView) findViewById(R.id.sensor_info);
     nonShimmerImage.setOnClickListener(this);
     container1 = (ShimmerLayout) findViewById(R.id.shimmer_view_container1);
     container1.startShimmerAnimation();

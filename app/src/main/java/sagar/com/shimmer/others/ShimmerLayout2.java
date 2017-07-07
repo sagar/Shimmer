@@ -1,4 +1,4 @@
-package sagar.com.shimmer;
+package sagar.com.shimmer.others;
 
 import android.content.Context;
 import android.content.res.Resources;

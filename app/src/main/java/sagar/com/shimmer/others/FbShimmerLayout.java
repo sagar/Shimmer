@@ -1,4 +1,4 @@
-package sagar.com.shimmer;
+package sagar.com.shimmer.others;
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 import android.animation.Animator;
@@ -19,6 +19,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import sagar.com.shimmer.R;
 
 public class FbShimmerLayout extends FrameLayout {
 
