@@ -2,14 +2,13 @@ package sagar.com.shimmer.flameshimmerview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
-import android.graphics.Shader.TileMode;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
@@ -45,16 +44,16 @@ public class FlameShimmerView extends AppCompatImageView {
 
   @Override
   protected void onDraw(Canvas canvas) {
-    if (gradient == null) {
-      gradient = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(), null, TileMode.REPEAT);
-    }
     Paint paint = new Paint();
-    paint.setShader(gradient);
-    canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
-
-    paint.setXfermode(mode);
-
     canvas.drawBitmap(flame, 0, 0, paint);
+
+    Bitmap gadientBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
+    Canvas canvas1 = new Canvas(gadientBitmap);
+
+    //Shader gradient = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(), null, TileMode.REPEAT);
+    paint.setXfermode(mode);
+    //paint.setShader(gradient);
+    canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
 
     super.onDraw(canvas);
   }
