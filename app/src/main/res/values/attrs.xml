@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <declare-styleable name="ShimmerLayout">
+  <declare-styleable name="FbShimmerLayout">
     <attr name="auto_start" format="boolean"/>
     <attr name="base_alpha" format="float"/>
     <attr name="duration" format="integer"/>

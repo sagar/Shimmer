@@ -46,8 +46,8 @@ public class ShimmerLayout extends FrameLayout {
      * @return An array of black and transparent colors
      */
     public int[] getGradientColors() {
-      //return new int[]{gold1, gold2, gold3, gold4, gold5, gold6, gold7};
-      return new int[]{Color.TRANSPARENT, Color.BLACK, Color.BLACK, Color.TRANSPARENT};
+      return new int[]{gold1, gold2, gold3, gold4, gold5, gold6, gold7};
+      //return new int[]{Color.TRANSPARENT, Color.BLACK, Color.BLACK, Color.TRANSPARENT};
     }
 
     /**
@@ -361,6 +361,39 @@ public class ShimmerLayout extends FrameLayout {
     renderCanvas.drawBitmap(maskBitmap, mMaskOffsetX, mMaskOffsetY, mMaskPaint);
   }
 
+  // Return the mask bitmap, creating it if necessary.
+  private Bitmap getMaskBitmap() {
+    if (mMaskBitmap != null) {
+      return mMaskBitmap;
+    }
+
+    int width = mMask.maskWidth(getWidth());
+    int height = mMask.maskHeight(getHeight());
+
+    mMaskBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(mMaskBitmap);
+    Shader gradient;
+    int x1 = 0, y1 = 0;
+    int x2 = width, y2 = 0;
+    gradient =
+        new LinearGradient(
+            x1, y1,
+            x2, y2,
+            mMask.getGradientColors(),
+            //mMask.getGradientPositions(),
+            null,
+            Shader.TileMode.REPEAT);
+
+    canvas.rotate(mMask.tilt, width / 2, height / 2);
+    Paint paint = new Paint();
+    paint.setShader(gradient);
+    // We need to increase the rect size to account for the tilt
+    int padding = (int) (Math.sqrt(2) * Math.max(width, height)) / 2;
+    canvas.drawRect(-padding, -padding, width + padding, height + padding, paint);
+
+    return mMaskBitmap;
+  }
+
   private Bitmap tryObtainRenderUnmaskBitmap() {
     if (mRenderUnmaskBitmap == null) {
       mRenderUnmaskBitmap = tryCreateRenderBitmap();
@@ -404,39 +437,6 @@ public class ShimmerLayout extends FrameLayout {
       mRenderMaskBitmap.recycle();
       mRenderMaskBitmap = null;
     }
-  }
-
-  // Return the mask bitmap, creating it if necessary.
-  private Bitmap getMaskBitmap() {
-    if (mMaskBitmap != null) {
-      return mMaskBitmap;
-    }
-
-    int width = mMask.maskWidth(getWidth());
-    int height = mMask.maskHeight(getHeight());
-
-    mMaskBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-    Canvas canvas = new Canvas(mMaskBitmap);
-    Shader gradient;
-    int x1 = 0, y1 = 0;
-    int x2 = width, y2 = 0;
-    gradient =
-        new LinearGradient(
-            x1, y1,
-            x2, y2,
-            mMask.getGradientColors(),
-            //mMask.getGradientPositions(),
-            null,
-            Shader.TileMode.REPEAT);
-
-    canvas.rotate(mMask.tilt, width / 2, height / 2);
-    Paint paint = new Paint();
-    paint.setShader(gradient);
-    // We need to increase the rect size to account for the tilt
-    int padding = (int) (Math.sqrt(2) * Math.max(width, height)) / 2;
-    canvas.drawRect(-padding, -padding, width + padding, height + padding, paint);
-
-    return mMaskBitmap;
   }
 
   // Get the shimmer <a href="http://developer.android.com/reference/android/animation/Animator.html">Animator</a>
