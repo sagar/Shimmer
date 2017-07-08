@@ -14,7 +14,6 @@ import android.graphics.Shader.TileMode;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 import sagar.com.shimmer.R;
 
 public class FlameShimmerView extends AppCompatImageView {
@@ -43,7 +42,21 @@ public class FlameShimmerView extends AppCompatImageView {
 
   @Override
   protected void onDraw(Canvas canvas) {
-    final PorterDuffXfermode mode = new PorterDuffXfermode(Mode.SCREEN);
+    Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
+    Canvas canvas1 = new Canvas(bitmap);
+    super.onDraw(canvas1);
+
+    Paint paint = new Paint();
+    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
+    paint.setShader(new LinearGradient(0, 0, getWidth(), getWidth(), getColorList(), null, TileMode.CLAMP));
+    canvas1.drawRect(0, 0, getWidth(), getHeight(), paint);
+    canvas.drawBitmap(bitmap, 0, 0, null);
+  }
+
+  /**
+  @Override
+  protected void onDraw(Canvas canvas) {
+    final PorterDuffXfermode mode = new PorterDuffXfermode(Mode.DARKEN);
     super.onDraw(canvas);
     //Bitmap bitmap1 = Bitmap.createBitmap(200, 200, Config.ARGB_8888); // flame
     BitmapFactory.Options options = new BitmapFactory.Options();
@@ -68,6 +81,7 @@ public class FlameShimmerView extends AppCompatImageView {
     //canvas.drawBitmap(bitmap2, 0, 0, paint);
     canvas.drawRect(0, 0, 297, 210, paint);
   }
+  **/
 
   public int[] getColorList() {
     return new int[] { gold1, gold2, gold3, gold4, gold5, gold6, gold7 };
