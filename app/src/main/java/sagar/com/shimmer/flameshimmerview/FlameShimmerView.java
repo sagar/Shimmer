@@ -51,7 +51,8 @@ public class FlameShimmerView extends AppCompatImageView {
       public void run() {
         //ValueAnimator animator = ValueAnimator.ofInt(-10, 10);
         ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
-        animator.setDuration(3000);
+        animator.setDuration(1000);
+        animator.setStartDelay(0);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setRepeatMode(ValueAnimator.REVERSE);
         animator.addUpdateListener(new AnimatorUpdateListener() {
