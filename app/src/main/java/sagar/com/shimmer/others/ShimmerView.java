@@ -15,8 +15,6 @@ public class ShimmerView extends View {
 
   private static final String TAG = ShimmerView.class.getSimpleName();
   private static int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
-  private static Shader gradient = null;
-  private Paint paint = new Paint();
 
   public ShimmerView(Context context) {
     super(context);
@@ -39,9 +37,8 @@ public class ShimmerView extends View {
 
   @Override
   protected void onDraw(Canvas canvas) {
-    if (gradient == null) {
-      gradient = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(), null, TileMode.REPEAT);
-    }
+    Paint paint = new Paint();
+    Shader gradient = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(), null, TileMode.REPEAT);
     paint.setShader(gradient);
     canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
     super.onDraw(canvas);
