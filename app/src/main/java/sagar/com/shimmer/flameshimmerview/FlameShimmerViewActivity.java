@@ -7,7 +7,7 @@ import sagar.com.shimmer.R;
 public class FlameShimmerViewActivity extends AppCompatActivity {
 
   private static final String TAG = FlameShimmerViewActivity.class.getSimpleName();
-  
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
