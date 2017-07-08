@@ -1,5 +1,7 @@
 package sagar.com.shimmer.flameshimmerview;
 
+import android.animation.ValueAnimator;
+import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -22,7 +24,7 @@ public class FlameShimmerView extends AppCompatImageView {
   private static int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
   private static Shader gradient = null;
   private static Bitmap flame;
-
+  private int fraction = 0;
 
   public FlameShimmerView(Context context) {
     super(context);
@@ -38,19 +40,46 @@ public class FlameShimmerView extends AppCompatImageView {
     gold6 = context.getResources().getColor(R.color.gold6);
     gold7 = context.getResources().getColor(R.color.gold7);
     flame = BitmapFactory.decodeResource(getResources(), R.drawable.flame);
+
+    postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        ValueAnimator animator = ValueAnimator.ofInt(-100, 100);
+        animator.setDuration(3000);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setRepeatMode(ValueAnimator.REVERSE);
+        animator.addUpdateListener(new AnimatorUpdateListener() {
+          @Override
+          public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            fraction = (int) valueAnimator.getAnimatedValue();
+            //Log.e(TAG, "fraction = " + fraction);
+            invalidate();
+          }
+        });
+        animator.start();
+      }
+    }, 500);
   }
 
   @Override
   protected void onDraw(Canvas canvas) {
+    // draws flame
     Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
     Canvas canvas1 = new Canvas(bitmap);
     super.onDraw(canvas1);
 
+    // translation
+    canvas.translate(fraction, 0);
+
+    // draws gradient
     Paint paint = new Paint();
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(new LinearGradient(0, 0, getWidth(), getWidth(), getColorList(), null, TileMode.CLAMP));
     canvas1.drawRect(0, 0, getWidth(), getHeight(), paint);
+
     canvas.drawBitmap(bitmap, 0, 0, null);
+
+    //canvas.restore();
   }
 
   /**
