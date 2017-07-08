@@ -16,6 +16,7 @@ import android.graphics.Shader.TileMode;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.Log;
 import sagar.com.shimmer.R;
 
 public class FlameShimmerView extends AppCompatImageView {
@@ -24,7 +25,9 @@ public class FlameShimmerView extends AppCompatImageView {
   private static int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
   private static Shader gradient = null;
   private static Bitmap flame;
-  private int fraction = 0;
+  private int animatorInt = 0;
+  private float animatorFloat = 0;
+  private float positions[] = new float[7];
 
   public FlameShimmerView(Context context) {
     super(context);
@@ -41,17 +44,21 @@ public class FlameShimmerView extends AppCompatImageView {
     gold7 = context.getResources().getColor(R.color.gold7);
     flame = BitmapFactory.decodeResource(getResources(), R.drawable.flame);
 
+    positions = new float[] {0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f};
+
     postDelayed(new Runnable() {
       @Override
       public void run() {
-        ValueAnimator animator = ValueAnimator.ofInt(-100, 100);
+        //ValueAnimator animator = ValueAnimator.ofInt(-10, 10);
+        ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
         animator.setDuration(3000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setRepeatMode(ValueAnimator.REVERSE);
         animator.addUpdateListener(new AnimatorUpdateListener() {
           @Override
           public void onAnimationUpdate(ValueAnimator valueAnimator) {
-            fraction = (int) valueAnimator.getAnimatedValue();
+            //animatorInt = (int) valueAnimator.getAnimatedValue();
+            animatorFloat = valueAnimator.getAnimatedFraction();
             //Log.e(TAG, "fraction = " + fraction);
             invalidate();
           }
@@ -68,18 +75,13 @@ public class FlameShimmerView extends AppCompatImageView {
     Canvas canvas1 = new Canvas(bitmap);
     super.onDraw(canvas1);
 
-    // translation
-    canvas.translate(fraction, 0);
-
     // draws gradient
     Paint paint = new Paint();
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
-    paint.setShader(new LinearGradient(0, 0, getWidth(), getWidth(), getColorList(), null, TileMode.CLAMP));
+    paint.setShader(new LinearGradient(0, 0, getWidth(), getWidth(), getColorList(), getColorPositions(animatorFloat), TileMode.CLAMP));
     canvas1.drawRect(0, 0, getWidth(), getHeight(), paint);
 
     canvas.drawBitmap(bitmap, 0, 0, null);
-
-    //canvas.restore();
   }
 
   /**
@@ -114,6 +116,18 @@ public class FlameShimmerView extends AppCompatImageView {
 
   public int[] getColorList() {
     return new int[] { gold1, gold2, gold3, gold4, gold5, gold6, gold7 };
+  }
+
+  public float[] getColorPositions(float fraction) {
+    positions[0] = 0.14f + fraction;
+    for (int i = 1; i < 7; i++) {
+      positions[i] = positions[i-1] + fraction;
+      if (positions[i] >= 1) {
+        positions[i] = 0;
+      }
+      Log.e(TAG, "positions[" + i + "] = " + positions[i]);
+    }
+    return positions;
   }
 
   /**
