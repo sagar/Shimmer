@@ -1,4 +1,4 @@
-package sagar.com.shimmer.flameshimmerview;
+package sagar.com.shimmer.heartshimmerview;
 
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
@@ -22,9 +22,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import sagar.com.shimmer.R;
 
-public class FlameShimmerView extends AppCompatImageView implements SensorEventListener {
+public class HeartShimmerView extends AppCompatImageView implements SensorEventListener {
 
-  private static final String TAG = FlameShimmerView.class.getSimpleName();
+  private static final String TAG = HeartShimmerView.class.getSimpleName();
   private final int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
   private final float positions[] = new float[7];
   private final float offset = 0.03f;
@@ -34,11 +34,11 @@ public class FlameShimmerView extends AppCompatImageView implements SensorEventL
   private ValueAnimator animator;
   private Sensor accelerometer;
 
-  public FlameShimmerView(Context context) {
+  public HeartShimmerView(Context context) {
     this(context, null);
   }
 
-  public FlameShimmerView(Context context, @Nullable AttributeSet attrs) {
+  public HeartShimmerView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
     gold1 = getResources().getColor(R.color.gold1);
     gold2 = getResources().getColor(R.color.gold2);

@@ -12,6 +12,6 @@ public class ShimmerViewActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.shimmer_view);
+    setContentView(R.layout.flame_shimmer_view);
   }
 }
