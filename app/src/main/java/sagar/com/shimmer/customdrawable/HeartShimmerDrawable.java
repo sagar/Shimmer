@@ -30,6 +30,7 @@ public class HeartShimmerDrawable extends Drawable {
   private ValueAnimator animator;
   private final Bitmap background;
   private final Bitmap foreground;
+  private final Paint paint;
 
   public HeartShimmerDrawable(final Context context, Bitmap foreground, Bitmap background) {
     gold1 = context.getResources().getColor(R.color.gold1);
@@ -41,6 +42,7 @@ public class HeartShimmerDrawable extends Drawable {
     gold7 = context.getResources().getColor(R.color.gold7);
 
     updateColorPositions(0);
+    paint = new Paint();
 
     this.background = background;
     this.foreground = foreground;
@@ -87,8 +89,7 @@ public class HeartShimmerDrawable extends Drawable {
     Bitmap shimmerBitmap = Bitmap.createBitmap(foreground.getWidth(), foreground.getHeight(), Config.ARGB_8888);
     Canvas tempCanvas = new Canvas(shimmerBitmap);
     tempCanvas.drawBitmap(foreground, backgroundX, backgroundX, null);
-    final Paint paint = new Paint();
-    final Shader gradient = new LinearGradient(backgroundX, backgroundX, canvas.getWidth(), canvas.getWidth(), getColorList(), updateColorPositions(animatorFloat), TileMode.CLAMP);
+    final Shader gradient = new LinearGradient(backgroundX, backgroundX, canvas.getWidth(), canvas.getHeight(), getColorList(), updateColorPositions(animatorFloat), TileMode.CLAMP);
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(gradient);
     tempCanvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
@@ -101,12 +102,12 @@ public class HeartShimmerDrawable extends Drawable {
 
   @Override
   public void setAlpha(@IntRange(from = 0, to = 255) int alpha) {
-    
+    paint.setAlpha(alpha);
   }
 
   @Override
   public void setColorFilter(@Nullable ColorFilter colorFilter) {
-
+    paint.setColorFilter(colorFilter);
   }
 
   @Override
