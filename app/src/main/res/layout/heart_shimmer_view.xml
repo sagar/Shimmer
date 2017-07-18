@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical">
+  android:layout_height="match_parent">
 
-  <ImageView
-    android:layout_marginTop="-5dp"
-    android:layout_marginLeft="-11dp"
-    android:scaleType="centerCrop"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/paywall_heart_bg"/>
-
-  <sagar.com.shimmer.heartshimmerview.HeartShimmerView
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="10dp"
+  <sagar.com.shimmer.heartshimmerview.HeartShimmerView2
+    android:background="@android:color/darker_gray"
     android:id="@+id/shimmer_view"
     android:src="@drawable/paywall_heart_color"
-    android:layout_marginBottom="50dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>
 </FrameLayout>
