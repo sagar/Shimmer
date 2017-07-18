@@ -74,8 +74,7 @@ public class HeartShimmerView2 extends AppCompatImageView {
 
     // draws gradient
     final Paint paint = new Paint();
-    final Shader gradient = new LinearGradient(0, 0, background.getWidth(), background.getWidth(), getColorList(),
-        updateColorPositions(animatorFloat), TileMode.CLAMP);
+    final Shader gradient = new LinearGradient(0, 0, background.getWidth(), background.getWidth(), getColorList(), updateColorPositions(animatorFloat), TileMode.CLAMP);
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(gradient);
     tempCanvas.drawRect(0, 0, background.getWidth(), background.getHeight(), paint);
