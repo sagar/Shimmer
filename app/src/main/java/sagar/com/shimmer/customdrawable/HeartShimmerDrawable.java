@@ -83,13 +83,13 @@ public class HeartShimmerDrawable extends Drawable {
     int foregroundX = 6 + (backgroundX * 6), foregroundY = 9 + (backgroundY * 9);
 
     // background
-    canvas.drawBitmap(background, backgroundX, backgroundX, null);
+    canvas.drawBitmap(background, backgroundX, backgroundY, null);
 
     // shimmer
     Bitmap shimmerBitmap = Bitmap.createBitmap(foreground.getWidth(), foreground.getHeight(), Config.ARGB_8888);
     Canvas tempCanvas = new Canvas(shimmerBitmap);
-    tempCanvas.drawBitmap(foreground, backgroundX, backgroundX, null);
-    final Shader gradient = new LinearGradient(backgroundX, backgroundX, canvas.getWidth(), canvas.getHeight(), getColorList(), updateColorPositions(animatorFloat), TileMode.CLAMP);
+    tempCanvas.drawBitmap(foreground, backgroundX, backgroundY, null);
+    final Shader gradient = new LinearGradient(backgroundX, backgroundY, canvas.getWidth(), canvas.getHeight(), getColorList(), updateColorPositions(animatorFloat), TileMode.CLAMP);
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(gradient);
     tempCanvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);

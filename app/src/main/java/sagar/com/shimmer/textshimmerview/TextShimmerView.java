@@ -6,20 +6,18 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import sagar.com.shimmer.R;
 
-public class TextShimmerView extends AppCompatImageView {
+public class TextShimmerView extends AppCompatTextView {
 
   private static final String TAG = TextShimmerView.class.getSimpleName();
   private final int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
@@ -75,15 +73,6 @@ public class TextShimmerView extends AppCompatImageView {
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(gradient);
     tempCanvas.drawRect(0, 0, getWidth(), getHeight(), paint);
-
-    Paint paint1 = new Paint();
-    paint1.setTextSize(24);
-    paint1.setColor(Color.RED);
-    paint1.setFakeBoldText(true);
-    paint1.setTextAlign(Align.CENTER);
-
-    int start = (getWidth() / 2) - 10;
-    tempCanvas.drawText("CONTINUE", start, start, paint1);
 
     canvas.drawBitmap(bitmap, 0, 0, null);
   }
