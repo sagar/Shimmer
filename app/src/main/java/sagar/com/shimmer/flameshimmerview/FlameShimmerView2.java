@@ -22,13 +22,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import sagar.com.shimmer.R;
 
-public class FlameShimmerView extends AppCompatImageView implements SensorEventListener {
+public class FlameShimmerView2 extends AppCompatImageView implements SensorEventListener {
 
-  private static final String TAG = FlameShimmerView.class.getSimpleName();
+  private static final String TAG = FlameShimmerView2.class.getSimpleName();
   private final int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
   private final float positions[] = new float[7];
   private final float offset = 0.03f;
-  private int animatorFloat = 0;
+  private float animatorFloat = 0;
   private Canvas tempCanvas;
   private Bitmap bitmap;
   private ValueAnimator animator;
@@ -39,11 +39,11 @@ public class FlameShimmerView extends AppCompatImageView implements SensorEventL
   private float[] magnetometerReading = new float[3];
   private float[] orientationAngles = new float[3];
 
-  public FlameShimmerView(Context context) {
+  public FlameShimmerView2(Context context) {
     this(context, null);
   }
 
-  public FlameShimmerView(Context context, @Nullable AttributeSet attrs) {
+  public FlameShimmerView2(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
     gold1 = getResources().getColor(R.color.gold1);
     gold2 = getResources().getColor(R.color.gold2);
@@ -61,7 +61,7 @@ public class FlameShimmerView extends AppCompatImageView implements SensorEventL
     //sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     //sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
 
-    animator = ValueAnimator.ofInt(-400, 400);
+    animator = ValueAnimator.ofInt(0, 1);
     animator.setDuration(2000);
     animator.setStartDelay(0);
     animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -69,8 +69,8 @@ public class FlameShimmerView extends AppCompatImageView implements SensorEventL
     animator.addUpdateListener(new AnimatorUpdateListener() {
       @Override
       public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        animatorFloat = (int) valueAnimator.getAnimatedValue();
-
+        animatorFloat = valueAnimator.getAnimatedFraction();
+        Log.e(TAG, "animatorFloat shimmerview2 = " + animatorFloat);
         invalidate();
       }
     });
@@ -86,7 +86,7 @@ public class FlameShimmerView extends AppCompatImageView implements SensorEventL
 
     // draws gradient
     final Paint paint = new Paint();
-    final Shader gradient = new LinearGradient(animatorFloat, 0, getWidth() + animatorFloat, getHeight(), getColorList(), null, TileMode.CLAMP);
+    final Shader gradient = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(), updateColorPositions(animatorFloat), TileMode.CLAMP);
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(gradient);
     tempCanvas.drawRect(0, 0, getWidth(), getHeight(), paint);
@@ -98,7 +98,7 @@ public class FlameShimmerView extends AppCompatImageView implements SensorEventL
   }
 
   public float[] updateColorPositions(float fraction) {
-    positions[0] = offset + fraction;
+    positions[0] = fraction + offset;
     for (int i = 1; i < positions.length; i++) {
       positions[i] = positions[i-1] + fraction;
       if (positions[i] >= 1) {

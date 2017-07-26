@@ -68,7 +68,7 @@ public class TextShimmerView extends AppCompatTextView {
 
     // draws gradient
     final Paint paint = new Paint();
-    final Shader gradient = new LinearGradient(0, 0, getWidth(), getWidth(), getColorList(),
+    final Shader gradient = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(),
         updateColorPositions(animatorFloat), TileMode.CLAMP);
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(gradient);

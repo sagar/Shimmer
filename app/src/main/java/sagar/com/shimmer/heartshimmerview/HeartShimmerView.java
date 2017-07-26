@@ -75,7 +75,7 @@ public class HeartShimmerView extends AppCompatImageView implements SensorEventL
 
     // draws gradient
     final Paint paint = new Paint();
-    final Shader gradient = new LinearGradient(0, 0, getWidth(), getWidth(), getColorList(),
+    final Shader gradient = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(),
         updateColorPositions(animatorFloat), TileMode.CLAMP);
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(gradient);
@@ -97,20 +97,6 @@ public class HeartShimmerView extends AppCompatImageView implements SensorEventL
       //Log.e(TAG, "positions[" + i + "] = " + positions[i]);
     }
     return positions;
-  }
-
-  private Bitmap getBitmap(int width, int height) {
-    if (bitmap == null) {
-      bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
-    }
-    return bitmap;
-  }
-
-  private Canvas getCanvas(Bitmap bitmap) {
-    if (tempCanvas == null) {
-      tempCanvas = new Canvas(bitmap);
-    }
-    return tempCanvas;
   }
 
   @Override
