@@ -1,7 +1,5 @@
 package sagar.com.shimmer.flameshimmerview;
 
-import android.animation.ValueAnimator;
-import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -22,28 +20,27 @@ import android.util.AttributeSet;
 import android.util.Log;
 import sagar.com.shimmer.R;
 
-public class FlameShimmerView2 extends AppCompatImageView implements SensorEventListener {
+public class SensorFlameShimmerView extends AppCompatImageView implements SensorEventListener {
 
-  private static final String TAG = FlameShimmerView2.class.getSimpleName();
+  private static final String TAG = SensorFlameShimmerView.class.getSimpleName();
   private final int gold1, gold2, gold3, gold4, gold5, gold6, gold7;
   private final float positions[] = new float[7];
-  private final float offset = 0.03f;
-  private float animatorFloat = 0;
+  private float rollAngle = 0;
   private Canvas tempCanvas;
   private Bitmap bitmap;
-  private ValueAnimator animator;
-  private Sensor accelerometer;
-  private Sensor magnetometer;
   private float[] rotationMatrix = new float[9];
   private float[] accelerometerReading = new float[3];
   private float[] magnetometerReading = new float[3];
   private float[] orientationAngles = new float[3];
+  private final float angle = 50.0f;
+  private float endX;
+  private float endY;
 
-  public FlameShimmerView2(Context context) {
+  public SensorFlameShimmerView(Context context) {
     this(context, null);
   }
 
-  public FlameShimmerView2(Context context, @Nullable AttributeSet attrs) {
+  public SensorFlameShimmerView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
     gold1 = getResources().getColor(R.color.gold1);
     gold2 = getResources().getColor(R.color.gold2);
@@ -53,28 +50,11 @@ public class FlameShimmerView2 extends AppCompatImageView implements SensorEvent
     gold6 = getResources().getColor(R.color.gold6);
     gold7 = getResources().getColor(R.color.gold7);
 
-    updateColorPositions(0);
-
     SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-    accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-    //sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-    //sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
-
-    animator = ValueAnimator.ofInt(0, 1);
-    animator.setDuration(2000);
-    animator.setStartDelay(0);
-    animator.setRepeatCount(ValueAnimator.INFINITE);
-    animator.setRepeatMode(ValueAnimator.REVERSE);
-    animator.addUpdateListener(new AnimatorUpdateListener() {
-      @Override
-      public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        animatorFloat = valueAnimator.getAnimatedFraction();
-        //Log.e(TAG, "animatorFloat shimmerview2 = " + animatorFloat);
-        invalidate();
-      }
-    });
-    animator.start();
+    Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    Sensor magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+    sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
   }
 
   @Override
@@ -84,43 +64,36 @@ public class FlameShimmerView2 extends AppCompatImageView implements SensorEvent
     tempCanvas = new Canvas(bitmap);
     super.onDraw(tempCanvas);
 
+    computeAngle(getWidth());
+
     // draws gradient
     final Paint paint = new Paint();
-    final Shader gradient = new LinearGradient(0, 0, getWidth(), getHeight(), getColorList(), updateColorPositions(animatorFloat), TileMode.CLAMP);
+    final Shader gradient = new LinearGradient(0, 0, endX, endY, getColorList(), null, TileMode.CLAMP);
     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
     paint.setShader(gradient);
     tempCanvas.drawRect(0, 0, getWidth(), getHeight(), paint);
     canvas.drawBitmap(bitmap, 0, 0, null);
   }
 
+  private void computeAngle(int width) {
+    double angleInRadians = Math.toRadians(angle);
+    endX = (float) (Math.cos(angleInRadians) * width);
+    endY = (float) (Math.sin(angleInRadians) * width);
+  }
+
   public int[] getColorList() {
     return new int[] { gold1, gold2, gold3, gold4, gold5, gold6, gold7 };
   }
 
-  public float[] updateColorPositions(float fraction) {
-    positions[0] = fraction + offset;
+  public float[] updateColorPositions() {
+    positions[0] += rollAngle;
     for (int i = 1; i < positions.length; i++) {
-      positions[i] = positions[i-1] + fraction;
+      positions[i] = positions[i-1] + 0.2f;
       if (positions[i] >= 1) {
         positions[i] = 0;
       }
-      //Log.e(TAG, "positions[" + i + "] = " + positions[i]);
     }
     return positions;
-  }
-
-  private Bitmap getBitmap(int width, int height) {
-    if (bitmap == null) {
-      bitmap = Bitmap.createBitmap(width, height, Config.ARGB_8888);
-    }
-    return bitmap;
-  }
-
-  private Canvas getCanvas(Bitmap bitmap) {
-    if (tempCanvas == null) {
-      tempCanvas = new Canvas(bitmap);
-    }
-    return tempCanvas;
   }
 
   @Override
@@ -137,8 +110,8 @@ public class FlameShimmerView2 extends AppCompatImageView implements SensorEvent
     // "rotationMatrix" now has up-to-date information.
     SensorManager.getOrientation(rotationMatrix, orientationAngles);
 
-    //animatorFloat = -orientationAngles[2];
-    Log.e(TAG, "rollAngle: " + animatorFloat);
+    rollAngle = orientationAngles[2];
+    Log.e(TAG, "rollAngle: " + rollAngle);
   }
 
   @Override
